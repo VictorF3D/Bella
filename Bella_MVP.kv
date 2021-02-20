@@ -1,0 +1,205 @@
+<Spinner>
+    size_hint_x: .5
+    pos_hint: {'center_x': .5}
+    size_hint_y: None
+    height: 50
+
+<TextInput>
+    size_hint_x: .5
+    pos_hint: {'center_x': .5}
+    size_hint_y: None
+    height: 50
+
+GerenciadorDeTelas:
+    TelaInicial:
+    TelaProdutos:
+    TelaFornecedores:
+    TelaCompras:
+
+<TelaInicial>:
+    name: "inicial"
+
+
+    BoxLayout:
+        size: root.width, root.height
+        orientation: 'vertical'
+
+        Label:
+            text: "BEM-VINDO AO BELLA SYSTEM!"
+            size_hint_y: None
+            height: 60
+
+        Button:
+            text: "Nova Compra"
+            on_release:
+                app.root.current='compras'
+                root.manager.transition.direction='left'
+        Button:
+            text: "Produtos"
+            on_release:
+                app.root.current='produtos'
+                root.manager.transition.direction='left'
+        Button:
+            text: "Fornecedores"
+            on_release:
+                app.root.current='fornecedores'
+                root.manager.transition.direction='left'
+
+<TelaCompras>:
+    name: "compras"
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+        spacing: 10
+
+        Label:
+            text: 'EFETUAR NOVA COMPRA'
+
+        ScrollView:
+            size_hint_x: .5
+            pos_hint: {'center_x': .5}
+            size_hint_y: None
+            height: 50
+            Spinner:
+                id: spinner_fornecedores
+                text: "Selecione o Fornecedor"
+                values: []
+                size_hint_x: 1
+                on_press: root.carregafornecedores()
+
+
+        Spinner:
+            id: spinner_produtos
+            text: "Selecione o Produto"
+            values: []
+            on_press: root.carregaprodutos()
+
+
+        TextInput:
+            id: preço_produto
+            hint_text: "Preço"
+
+        TextInput:
+            id: quantidade_produto
+            hint_text: "Quantidade"
+
+
+        Spinner:
+            id: spinner_porte
+            text: "Selecione o Porte"
+            values: ['Grande', 'Médio', 'Pequeno']
+
+
+        Button:
+            id: registro
+            text: "Registrar Compra"
+            on_release: root.registracompra(spinner_fornecedores.text, spinner_produtos.text, preço_produto.text, quantidade_produto.text, spinner_porte.text)
+            size_hint_y:None
+            height: 60
+            size_hint_x: .5
+            pos_hint: {'center_x': .5}
+
+        Label:
+            id: compra_sucesso
+            text:''
+            size_hint_y: None
+            height: 150
+
+        Button:
+            id: home
+            size_hint_y: None
+            height: 25
+            text: "VOLTAR"
+            on_release:
+                app.root.current='inicial'
+                root.manager.transition.direction = "right"
+
+<TelaFornecedores>:
+    name: "fornecedores"
+
+    BoxLayout:
+        spacing: 30
+        orientation: 'vertical'
+        size: root.width, root.height
+
+        Label:
+            text: 'CADASTRAR NOVO FORNECEDOR'
+            size_hint_y: None
+            height: 150
+
+        TextInput:
+            id: nome_fornecedor
+            hint_text: "Insira o nome do fornecedor"
+
+
+
+        Button:
+            id: regitra_fornecedor
+            text: "Registrar"
+            on_release: root.registrafornecedor(nome_fornecedor.text)
+            size_hint_y: None
+            height: 50
+            size_hint_x: .5
+            pos_hint: {'center_x': .5}
+
+        Label:
+            id: cadastro_sucesso
+            text: ''
+            size_hint_y: None
+            height: 150
+            pos_hint: {'center_x': .5}
+
+        Button:
+            id: home_2
+            size_hint_y: None
+            height: 25
+            text: "VOLTAR"
+            on_release:
+                app.root.current='inicial'
+                root.manager.transition.direction = "right"
+
+<TelaProdutos>:
+    name: 'produtos'
+
+    BoxLayout:
+        size: root.width, root.height
+        orientation: 'vertical'
+        padding: 10
+        spacing: 20
+
+        Label:
+            text: 'CADASTRAR NOVO PRODUTO'
+            hint_size_y: None
+            height: 150
+
+        TextInput:
+            id: nome_produto
+            hint_text: "Insira o nome do produto"
+            size_hint: (.5, .5)
+            pos_hint: {'center_x': .5}
+
+
+        Button:
+            id: regitra_produto
+            text: "Registrar"
+            on_release: root.registraproduto(nome_produto.text)
+            size_hint: (.5, .5)
+            pos_hint: {'center_x': .5}
+
+        Label:
+            id: cadastro_sucesso
+            text: ''
+            size_hint_y: None
+            height: 150
+            pos_hint: {'center_x': .5}
+
+        Button:
+            id: home_3
+            size_hint_y: None
+            height: 25
+            text: "VOLTAR"
+            on_release:
+                app.root.current='inicial'
+                root.manager.transition.direction = "right"
+
